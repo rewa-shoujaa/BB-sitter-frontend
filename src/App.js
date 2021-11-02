@@ -39,7 +39,7 @@ function App() {
  
   return (
     <div>
-    <Router>
+    <Router basename="/BB-sitter-frontend">
      
        
       <Switch>
