@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/BB-sitter-frontend/static/css/main.62de2d94.chunk.css",
+    "main.js": "/BB-sitter-frontend/static/js/main.219bb647.chunk.js",
+    "main.js.map": "/BB-sitter-frontend/static/js/main.219bb647.chunk.js.map",
+    "runtime-main.js": "/BB-sitter-frontend/static/js/runtime-main.9c08c010.js",
+    "runtime-main.js.map": "/BB-sitter-frontend/static/js/runtime-main.9c08c010.js.map",
+    "static/css/2.f4c56af9.chunk.css": "/BB-sitter-frontend/static/css/2.f4c56af9.chunk.css",
+    "static/js/2.676a38b2.chunk.js": "/BB-sitter-frontend/static/js/2.676a38b2.chunk.js",
+    "static/js/2.676a38b2.chunk.js.map": "/BB-sitter-frontend/static/js/2.676a38b2.chunk.js.map",
+    "index.html": "/BB-sitter-frontend/index.html",
+    "static/css/2.f4c56af9.chunk.css.map": "/BB-sitter-frontend/static/css/2.f4c56af9.chunk.css.map",
+    "static/css/main.62de2d94.chunk.css.map": "/BB-sitter-frontend/static/css/main.62de2d94.chunk.css.map",
+    "static/js/2.676a38b2.chunk.js.LICENSE.txt": "/BB-sitter-frontend/static/js/2.676a38b2.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9c08c010.js",
+    "static/css/2.f4c56af9.chunk.css",
+    "static/js/2.676a38b2.chunk.js",
+    "static/css/main.62de2d94.chunk.css",
+    "static/js/main.219bb647.chunk.js"
+  ]
+}
