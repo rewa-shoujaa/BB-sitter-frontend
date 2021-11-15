@@ -10,19 +10,23 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import InsertInvitationOutlinedIcon from '@mui/icons-material/InsertInvitationOutlined';
+import Avatar from '@mui/material/Avatar';
 
 export default function CardProfile(props) {
     console.log(props.user);
     return (
 
         <Card elevation={6}>
-      <CardMedia
-        component="img"
-        alt={props.user[0].firstname}
-        width='100vw'
-        style={{height:300}}
-        image={props.user[0].img?process.env.REACT_APP_Media_URL+props.user[0].img:process.env.REACT_APP_Media_URL+"/image/User.jpg"}
-      />
+
+      <div style={{ display: "flex", justifyContent: "center", alignItems: "center",backgroundColor: '#2E3B55', padding:'15px'}}>
+
+        <Avatar
+          alt={props.user[0].firstname}
+          src={props.user[0].img?process.env.REACT_APP_Media_URL+props.user[0].img:process.env.REACT_APP_Media_URL+"/image/User.jpg"}
+          style={{height:'20vw',width:'20vw'}}
+        />
+        </div>
+      
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
         {props.user[0].firstname+" "+ props.user[0].lastname}

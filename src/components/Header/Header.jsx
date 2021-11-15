@@ -11,7 +11,7 @@ import Menu from '@mui/material/Menu';
 import { useHistory } from 'react-router-dom';
 
 
-const Header = ({ onPlaceChanged, onLoad, showAppointment, setopenProfile, setOpenChat, setopenAppointmentsList, getAppointments, notificationList, NotificationRead, notificationCount, loadNotifcations, getNotification }) => {
+const Header = ({ onPlaceChanged, onLoad, showAppointment, setopenProfile, setopenAppointmentsList, getAppointments, notificationList, NotificationRead, notificationCount, loadNotifcations, getNotification }) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorE2, setAnchorE2] = React.useState(null);
@@ -49,15 +49,6 @@ const Header = ({ onPlaceChanged, onLoad, showAppointment, setopenProfile, setOp
 
 
                 <Box sx={{ display: { xs: 'flex' } }}>
-                    <IconButton
-                        size="large"
-                        aria-label="show 4 new mails"
-                        color="inherit"
-                        onClick={() => { setOpenChat(true); }}>
-                        <Badge badgeContent={4} color="error">
-                            <MailIcon />
-                        </Badge>
-                    </IconButton>
                     <IconButton
                         size="large"
                         aria-label="show 17 new notifications"

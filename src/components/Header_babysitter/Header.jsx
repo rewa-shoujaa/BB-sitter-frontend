@@ -11,7 +11,7 @@ import Menu from '@mui/material/Menu';
 import { useHistory } from 'react-router-dom';
 
 
-const Header_babysitter = ({ onPlaceChanged, onLoad, showAppointment, setopenProfile, setOpenChat, notificationList, NotificationRead, notificationCount, loadNotifcations, getNotification }) => {
+const Header_babysitter = ({ onPlaceChanged, onLoad, showAppointment, setopenProfile, setOpenChat, notificationList, NotificationRead, notificationCount, loadNotifcations, getNotification, setMessagesCount, messagesCount }) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [anchorE2, setAnchorE2] = React.useState(null);
@@ -48,8 +48,12 @@ const Header_babysitter = ({ onPlaceChanged, onLoad, showAppointment, setopenPro
 
 
                 <Box sx={{ display: { xs: 'flex' } }}>
-                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                        <Badge badgeContent={4} color="error">
+                    <IconButton
+                        size="large"
+                        aria-label="show 4 new mails"
+                        color="inherit"
+                        onClick={() => { setOpenChat(true); setMessagesCount(0) }}>
+                        <Badge badgeContent={messagesCount > 0 ? messagesCount : null} color="error">
                             <MailIcon />
                         </Badge>
                     </IconButton>

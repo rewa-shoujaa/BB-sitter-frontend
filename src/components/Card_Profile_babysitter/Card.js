@@ -7,19 +7,23 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Link from '@mui/material/Link';
+import Avatar from '@mui/material/Avatar';
 
 export default function Card_Profile_babysitter(props) {
     console.log(props.babysitterInfo);
     return (
 
         <Card elevation={6}>
-      <CardMedia
-        component="img"
-        alt={props.babysitterInfo[0].firstname}
-        width='100vw'
-        style={{height:300}}
-        image={props.babysitterInfo[0].picture?process.env.REACT_APP_Media_URL+props.babysitterInfo[0].picture:process.env.REACT_APP_Media_URL+"/image/User.jpg"}
-      />
+
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center",backgroundColor: '#2E3B55', padding:'15px'}}>
+
+        <Avatar
+          alt={props.babysitterInfo[0].firstname}
+          src={props.babysitterInfo[0].picture?process.env.REACT_APP_Media_URL+props.babysitterInfo[0].picture:process.env.REACT_APP_Media_URL+"/image/User.jpg"}
+          style={{height:'20vw',width:'20vw'}}
+        />
+        </div>
+     
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
         {props.babysitterInfo[0].firstname+" "+ props.babysitterInfo[0].lastname}

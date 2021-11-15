@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 import 'firebase/storage';
 import "firebase/messaging";
 import dotenv from 'dotenv';
+import { getFirestore } from "firebase/firestore";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -55,3 +56,5 @@ export const onMessageListener = () =>
       resolve(payload);
     });
   });
+
+ // export const db= getFirestore();

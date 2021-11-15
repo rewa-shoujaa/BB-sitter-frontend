@@ -10,7 +10,7 @@ export default function Profile_babysitter(props) {
     return (
         <Box style={{width:"100%", height:"100%"}}> 
         {props.loadingInfo?
-        <CardProfile openbooking={props.openbooking} babysitterInfo={props.babysitterInfo} setopenRate={props.setopenRate}/>:<div>loading..</div>}
+        <CardProfile openbooking={props.openbooking} babysitterInfo={props.babysitterInfo} setopenRate={props.setopenRate} setopenViewRating={props.setopenViewRating}/>:<div>loading..</div>}
         
         </Box>
     )

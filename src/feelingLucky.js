@@ -4,6 +4,8 @@ import TextField from '@mui/material/TextField';
 import { Paper, makeStyles } from '@material-ui/core';
 import Moment from 'moment';
 import axios from 'axios';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import Map from './components/MapDragable/Map';
 import Button from '@mui/material/Button';
 import {useHistory} from'react-router-dom';
@@ -109,6 +111,11 @@ export default function FeelinglingLucky (props) {
     
       return (
           <>
+          <div style={{marginBottom:'15px'}}>
+          <Typography variant="subtitle2" component="h2">
+              By using this automatic booking feature the system will automatically select several babysitters located around you and send them an appointment request.
+            </Typography>
+            </div>
           
          <form className={classes.root} validate onSubmit={handleSubmit}>
              <Grid container >
@@ -152,23 +159,24 @@ export default function FeelinglingLucky (props) {
                      label="Details"
                      name="detail"
                      autoComplete="off"
-                     fullWidth
+                     style={{width:"95%"}}
                      multiline
                      rows={4}
                      value={details}
                      onChange={(e)=>{setdetails(e.target.value)}}
                      placeholder="Number of children, ages, special requests..."
                      />
-      
 
+                    <div style={{ display: "flex", justifyContent: "center", alignItems: "center"}}>
+      
                      <Button
                      type="submit"
-                     fullWidth
-                     style={{backgroundColor: '#2E3B55', color: '#FFFFFF'}}
+                     style={{backgroundColor: '#2E3B55', color: '#FFFFFF', width:'25%'}}
                      variant="contained"
                      sx={{ mt: 3, mb: 2 }}>
                          Book
                     </Button>
+                    </div>
 
                     {error? <Alert severity="error">{error}</Alert> : null}
                     {success?  <Alert severity="success">{success}</Alert>: null}

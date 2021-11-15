@@ -14,7 +14,7 @@ const Notifications = (props) => {
       data = await getToken(setTokenFound);
       if (data) {
         console.log("Token is", data);
-        props.setToken(data)
+        props.setToken(data);
       }
       return data;
     }

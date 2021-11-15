@@ -17,6 +17,10 @@ import Map from "./components/MapDragable/Map";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import InputAdornment from "@mui/material/InputAdornment";
+import { Typography } from "@material-ui/core";
+import Divider from "@mui/material/Divider";
+
+import Alert from "@mui/material/Alert";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +62,9 @@ export default function Register() {
   const [countrylong, setcountrylong] = useState(35.49548);
   const [countrylat, setcountrylat] = useState(33.88863);
   const [aboutme, setAboutme] = useState("");
+  const [error, seterror] = useState(null);
+  const [confirmpassword, setconfirmpassword] = useState("");
+  const [success, setsuccess] = useState(null);
 
   const [baseImage, setbaseImage] = useState("");
 
@@ -67,60 +74,70 @@ export default function Register() {
   //const [values,setValues] = useState(initialValues);
 
   const handleSubmit = (event) => {
+    seterror(null);
+    setsuccess(null);
     event.preventDefault();
-    if (userType === "2") {
-      axios
-        .post(process.env.REACT_APP_API_URL + "/register/parent", {
-          user_type: userType,
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          password: password,
-          city: city,
-          country: country,
-          gender: gender,
-          phone_number: mobile,
-          picture: baseImage,
-          DoB: dob,
-          latitude: latitude,
-          longitude: longitude,
-        })
-        .then(function (response) {
-          console.log(response.data);
-          history.push("/");
-        })
-        .catch(function (error) {
-          console.log(error);
-          alert("Please Try again later");
-        });
+    if (password !== confirmpassword) {
+      seterror("Please enter your password again.");
+      setpassword("");
+      setconfirmpassword("");
+    } else if (longitude === 0 || latitude === 0) {
+      seterror("Please choose your location.");
     } else {
-      axios
-        .post(process.env.REACT_APP_API_URL + "/babysitter/register", {
-          user_type: userType,
-          first_name: firstName,
-          last_name: lastName,
-          email: email,
-          password: password,
-          city: city,
-          country: country,
-          gender: gender,
-          phone_number: mobile,
-          picture: baseImage,
-          DoB: dob,
-          latitude: latitude,
-          longitude: longitude,
-          cv: qualification,
-          rate: rate,
-          aboutme: aboutme,
-        })
-        .then(function (response) {
-          console.log(response.data);
-          history.push("/");
-        })
-        .catch(function (error) {
-          console.log(error);
-          alert("Please Try again later");
-        });
+      if (userType === "2") {
+        axios
+          .post(process.env.REACT_APP_API_URL + "/register/parent", {
+            user_type: userType,
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+            city: city,
+            country: country,
+            gender: gender,
+            phone_number: mobile,
+            picture: baseImage,
+            DoB: dob,
+            latitude: latitude,
+            longitude: longitude,
+          })
+          .then(function (response) {
+            console.log(response.data);
+            history.push("/");
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("Please Try again later");
+          });
+      } else {
+        axios
+          .post(process.env.REACT_APP_API_URL + "/babysitter/register", {
+            user_type: userType,
+            first_name: firstName,
+            last_name: lastName,
+            email: email,
+            password: password,
+            city: city,
+            country: country,
+            gender: gender,
+            phone_number: mobile,
+            picture: baseImage,
+            DoB: dob,
+            latitude: latitude,
+            longitude: longitude,
+            cv: qualification,
+            rate: rate,
+            aboutme: aboutme,
+          })
+          .then(function (response) {
+            console.log(response.data);
+            history.push("/");
+          })
+          .catch(function (error) {
+            console.log(error);
+            alert("Please Try again later");
+          });
+      }
     }
   };
 
@@ -246,12 +263,24 @@ export default function Register() {
     <div
       styling={{ backgroundColor: "#f5f5f5", width: "100%", height: "100%" }}
     >
-      <PageHeader
-        title="Registration"
-        subTitle="Be part of our family"
-        icon={<AccountBoxIcon></AccountBoxIcon>}
-      />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#2E3B55",
+          padding: "15px",
+        }}
+      >
+        <Typography variant="h6" style={{ color: "white" }}>
+          {" "}
+          Registration
+        </Typography>
+      </div>
+
       <Paper className={classes.pageContent}>
+        {error ? <Alert severity="error">{error}</Alert> : null}
+        {success ? <Alert severity="success">{success}</Alert> : null}
         <form className={classes.root} Validate onSubmit={handleSubmit}>
           <Grid container>
             <Grid item md={6} xs={12}>
@@ -267,6 +296,9 @@ export default function Register() {
                   setFirstName(e.target.value);
                 }}
               />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
               <TextField
                 variant="outlined"
                 label="Last Name"
@@ -277,6 +309,9 @@ export default function Register() {
                   setlastName(e.target.value);
                 }}
               />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
               <TextField
                 variant="outlined"
                 label="Email"
@@ -288,17 +323,9 @@ export default function Register() {
                   setemail(e.target.value);
                 }}
               />
-              <TextField
-                variant="outlined"
-                label="Password"
-                type="password"
-                required
-                value={password}
-                autoComplete="off"
-                onChange={(e) => {
-                  setpassword(e.target.value);
-                }}
-              />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
               <TextField
                 variant="outlined"
                 label="Phone Number"
@@ -310,6 +337,53 @@ export default function Register() {
                   setmobile(e.target.value);
                 }}
               />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <TextField
+                variant="outlined"
+                label="Password"
+                type="password"
+                required
+                value={password}
+                autoComplete="off"
+                onChange={(e) => {
+                  setpassword(e.target.value);
+                }}
+              />
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <TextField
+                variant="outlined"
+                label="Confirm Password"
+                type="password"
+                required
+                value={confirmpassword}
+                autoComplete="off"
+                onChange={(e) => {
+                  setconfirmpassword(e.target.value);
+                }}
+              />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <TextField
+                id="date"
+                required
+                fullWidth
+                label="Date of Birth"
+                type="date"
+                Value={dob}
+                onChange={(e) => {
+                  setDob(e.target.value);
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </Grid>
+
+            <Grid item md={6} xs={12}>
               <FormControl>
                 <FormLabel component="legend">Gender</FormLabel>
                 <RadioGroup
@@ -334,21 +408,82 @@ export default function Register() {
                 </RadioGroup>
               </FormControl>
             </Grid>
+
             <Grid item md={6} xs={12}>
-              <TextField
-                id="date"
-                required
-                fullWidth
-                label="Date of Birth"
-                type="date"
-                Value={dob}
+              <FormControl fullWidth>
+                <InputLabel id="country-label">Country</InputLabel>
+                <Select
+                  required
+                  labelID="country-label"
+                  id="country-select"
+                  value={country}
+                  label="Country"
+                  onChange={handleCountryChange}
+                >
+                  {countryList.map((Country) => (
+                    <MenuItem
+                      key={Country.countryname}
+                      value={Country.countryname}
+                    >
+                      {Country.countryname}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item md={6} xs={12}>
+              <FormControl fullWidth>
+                <InputLabel id="city-label">City</InputLabel>
+                <Select
+                  required
+                  labelID="city-label"
+                  id="city-select"
+                  value={city}
+                  label="Country"
+                  onChange={handleCityChange}
+                >
+                  {citylist.map((city) => (
+                    <MenuItem
+                      key={city.cityid}
+                      value={city.cityid}
+                      long={city.long}
+                      lat={city.lat}
+                    >
+                      {city.cityname}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12}>
+              <div style={{ height: "40px" }}></div>
+            </Grid>
+            <Grid item md={6} xs={12}>
+              <input
+                accept="image/*"
+                style={{ display: "none" }}
+                id="profilePicture"
+                type="file"
                 onChange={(e) => {
-                  setDob(e.target.value);
-                }}
-                InputLabelProps={{
-                  shrink: true,
+                  uploadImage(e);
                 }}
               />
+              <label htmlFor="profilePicture">
+                <Button
+                  variant="outlined"
+                  component="span"
+                  style={{
+                    width: "80%",
+                    color: "#2E3B55",
+                    marginBottom: "15px",
+                    padding: "7px",
+                  }}
+                >
+                  Profile Picture
+                </Button>
+              </label>
 
               <FormControl>
                 <FormLabel component="legend">User Type</FormLabel>
@@ -367,7 +502,7 @@ export default function Register() {
                   <FormControlLabel
                     value="3"
                     control={<Radio />}
-                    label="Babsitter"
+                    label="Babysitter"
                   />
                 </RadioGroup>
               </FormControl>
@@ -433,81 +568,21 @@ export default function Register() {
                   </label>{" "}
                 </>
               ) : null}
-
-              <input
-                accept="image/*"
-                style={{ display: "none" }}
-                id="profilePicture"
-                type="file"
-                onChange={(e) => {
-                  uploadImage(e);
-                }}
-              />
-              <label htmlFor="profilePicture">
-                <Button
-                  variant="outlined"
-                  component="span"
-                  style={{
-                    width: "80%",
-                    color: "#2E3B55",
-                    marginBottom: "15px",
-                  }}
-                >
-                  Choose a profile picture
-                </Button>
-              </label>
             </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <InputLabel id="country-label">Country</InputLabel>
-                <Select
-                  required
-                  labelID="country-label"
-                  id="country-select"
-                  value={country}
-                  label="Country"
-                  onChange={handleCountryChange}
-                >
-                  {countryList.map((Country) => (
-                    <MenuItem
-                      key={Country.countryname}
-                      value={Country.countryname}
-                    >
-                      {Country.countryname}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
 
-              <FormControl fullWidth>
-                <InputLabel id="city-label">City</InputLabel>
-                <Select
-                  required
-                  labelID="city-label"
-                  id="city-select"
-                  value={city}
-                  label="Country"
-                  onChange={handleCityChange}
-                >
-                  {citylist.map((city) => (
-                    <MenuItem
-                      key={city.cityid}
-                      value={city.cityid}
-                      long={city.long}
-                      lat={city.lat}
-                    >
-                      {city.cityname}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+            <Grid item md={6} xs={12}>
+              <FormLabel component="legend" style={{ marginBottom: "10px" }}>
+                Specify your Location
+              </FormLabel>
               <Map
                 setLng={setLogitude}
                 setLat={setLatitude}
                 countrylat={countrylat}
                 countrylong={countrylong}
               />
+            </Grid>
 
+            <Grid item xs={12}>
               <Button
                 type="submit"
                 fullWidth
